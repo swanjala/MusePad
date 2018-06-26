@@ -63,7 +63,7 @@ Add additional notes about how to deploy this on a lice system
 ## Built With 
 
 * [FLASK](https://flask/pocoo.org) - The web framework used
-* [NOSE](https://nose.readthedocs.io/latest/) - Testing framework
+* [NOSE](https://nose.readthedocs.io/en/latest/) - Testing framework
 * [COVERALLS](https://coveralls.io/)- Used to generate RSS Feeds 
 
 ## Versioning
