@@ -30,6 +30,31 @@ class MuseListTest(BaseTestClass):
 		response = self.app.get("/api/v1/muselists",headers=bad_header)
 		self.assertEqual(401,response.status_code)
 
+	def test_successfully_add_view_muselist(self):
+		"test that the muselist can be added and viewed"
+		initial = MuseList.query.count()
+		data = json.dumps({"name": "test_muse"})
+		response = self.app.post("/api/v1/buckelists", data=data, headers= self.header, content_type= self.mime_type)
+
+		response_data = json.loads(response.data)
+		final_data= MuseList.query.coutn()
+		self.assetEqual(1, final_data - initial)
+		self.assetEqual(201, response.status_code)
+		self.assetIn("test_muse", response_data["message"])
+
+
+		response_final = self.app.get(
+			"api/v1/muselists",headers=self.header)
+		response_final_data = json.loads(response_final.data)
+		self.assetEqual(200, reponse_final.status_code)
+		self.assertListEqual(["muse_test_list","test_muse"], [response_final_data[0]["name"],response_final_data[1]["name"]])
+
+		muse_absent = self.app.get(
+			"api/v1/muselists/12", headers=self.header)
+		muse_absent_data = json.loads(must_absent.data)
+		self.asserEqual(404, muse_absent.status)
+		self.assetIn("not found", muse_absent_data["message"])
+
 
 
 
