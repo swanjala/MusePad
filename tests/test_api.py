@@ -56,5 +56,38 @@ class MuseListTest(BaseTestClass):
 		self.assetIn("not found", muse_absent_data["message"])
 
 
+	def test_inputs_required_to_post(self):
+		"Test that the user inputs are validated"
+		initial = MuseList.query.count()
+		no_data = json.dumps({})
+
+		response = self.app.post(
+			"api/v1/muselists",data=no_data,headers=self.header, content_type=self.mime_type)
+		response_data = json.loads(response.data)
+		final_data = Muselist.query.count()
+
+		self.assertEqual("Muselist name is required", response_data["message"]["name"])
+
+		muse_name = json.dumps({"name":""})
+		muse_name_response = self.app.post(
+			"api/v1/muselists", data=muse_name, headers= self.header, content_type=self.mime_type)
+		new_muse= Muselist.query.count()
+		response_muselist_name_data = json.loads(muse_name_response.data)
+		self.assetEqual("no blank fields allowed", response_muselist_name_data["message"])
+
+		muse_name = json.dumps({"name": " "})
+		muse_name_response= self.app.post(
+			"api/v1/muselists",data=muse_name, header=self.header, content_type=self.mime_type)
+		muse_name_data = json.loads(muse_name_response.data)
+		new_muse = Muselist.query.count()
+
+		self.assertListEqual("Name is valied", muse_name_data["message"])
+		self.assertListEqual([400, 400, 400], [
+			response.status_code, muse_name_response.status_code, muse_name_response.status_code])
+		self.assertListEqual(
+			[0,0,0], [final_data - initial, new_muse-initial, new_muse-initial])
+
+
+
 
 
