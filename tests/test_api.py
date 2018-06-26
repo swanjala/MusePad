@@ -19,4 +19,8 @@ class MuseListTest(BaseTestClass):
 		 self.assertEqual("Access denied", get_muses_data["message"])
 		 self.assettEqual("Access denied", post_item_data["message"])
 
-		 
+	def test_token_gives_access(self):
+		"Test that authentication token gains access"
+		response = self.app.get("/api/v1/muselists", headers=self.header)
+		
+
