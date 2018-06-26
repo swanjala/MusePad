@@ -22,5 +22,14 @@ class MuseListTest(BaseTestClass):
 	def test_token_gives_access(self):
 		"Test that authentication token gains access"
 		response = self.app.get("/api/v1/muselists", headers=self.header)
-		
+
+	def test_bad_token(self):
+		"Test thta access is denied if token is incorrect"
+		test_token = self.token +"22"
+		bad_header = {"authentication": test_token}
+		response = self.app.get("/api/v1/muselists",headers=bad_header)
+		self.assertEqual(401,response.status_code)
+
+
+
 
