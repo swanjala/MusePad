@@ -87,6 +87,33 @@ class MuseListTest(BaseTestClass):
 		self.assertListEqual(
 			[0,0,0], [final_data - initial, new_muse-initial, new_muse-initial])
 
+	def test_deleting_bucketlist(self):
+		"Test that muselist can be viewed and deleted"
+		initial_muse_count = Muselist.query.count()
+		initital_item_count = Item.query.count()
+
+		deleted_muse = self.app.delete(
+			"/api/v1/bucketlist/1", headers=self.header)
+		deleted_bucket_data = json.loads(deleted_bucket.data)
+		new_muse_count = Muselist.query.count()
+		self.assetEqual(deleted_muse.status_code,200)
+		self.assertListEqual(
+			[1,1],[initial_muse_count - new_muse_count, initial_Item_cout -new_Item_count])
+
+		self.assetIn("testlist has been deleted", deleted_muse["message"])
+
+		# Test that one attempts to delete a non existent muselist
+		no_muse_list_delete = self.app.delete(
+			"/api/v1/muselist/1", headers= self.header)
+		no_muse_list_delete_data = json.loads(no_muse_list_delete.data)
+		self.assertIn("Muselist not found", no_muse_list_delete_data["message"])
+
+		bad_del = self.app.delete("/api/v1/muselists", headers=self.header)
+		bad_del_data = json.loads(bad_del.data)
+		self.assetEqual(404, bad_del.status_code)
+		self.assetEqual("bad request", bad_del_data["message"])
+
+
 
 
 
