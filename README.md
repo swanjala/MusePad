@@ -1,4 +1,8 @@
 # MusePad
+
+![musejournal](https://user-images.githubusercontent.com/24252450/41875468-9e509112-78d3-11e8-894d-78a9f67f007b.png)
+
+## About 
 Muse-Pad is an Application Programming interface that let you write down your thoughts and special moments in your daily life.
 
 ## Getting Started
@@ -59,7 +63,7 @@ Add additional notes about how to deploy this on a lice system
 ## Built With 
 
 * [FLASK](https://flask/pocoo.org) - The web framework used
-* [NOSE](https://nose.readthedocs.io/latest/) - Testing framework
+* [NOSE](https://nose.readthedocs.io/en/latest/) - Testing framework
 * [COVERALLS](https://coveralls.io/)- Used to generate RSS Feeds 
 
 ## Versioning
