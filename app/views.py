@@ -74,18 +74,18 @@ class MuseListAction(Resource):
 		if id:
 			abort(400,"This is a bad request, try again")
 		self.reqparse.add_argument("name", type=str, required=True, help="Muselist name is required")
-		self.reqparse.add_argument("description", type=str, required=True, help="Add the description for your muselist")
+		# self.reqparse.add_argument("description", type=str, required=True, help="Add the description for your muselist")
 		args = self.reqparse.parse_args()
 		name = args["name"]
-		muse_description =args["description"]
+		# muse_description =args["description"]
 
-		if not id_not_empty(name):
+		if not is_not_empty(name):
 			return{"message":"no blank fields allowed"}, 400
 
 		if name.isspace():
 			return {"message": "The name you have entered is not relevant"}, 400
 
-		muse_instance = Muselist(name=name, user_id=g.user.id, muse_description=muse_description)
+		muse_instance = MuseList(name=name, user_id=g.user.id)
 		save(muse_instance)
 		msg= (muse_instance.name +"Has been saved successfully")
 		return {"message":msg}, 201
@@ -112,8 +112,8 @@ class MuseListAction(Resource):
 				return muse_res, 200
 
 		if page or limit:
-			muselist_collection = Muselist.query.filter_by(user_id=g.user.id).paginate(int(page), int(limit), False)
-			muse_display = [muse_dis for muse_disp in muselist_collection.items]
+			muselist_collection = MuseList.query.filter_by(user_id=g.user.id).paginate(int(page), int(limit), False)
+			muse_display = [muse_disp for muse_disp in muselist_collection.items]
 			return muse_display
 
 	def put(self, id=None):
@@ -155,8 +155,8 @@ class MuseItemAction(Resource):
 	decorators = [token_auth.login_required]
 
 	def __init__(self):
-		self.reqparse = reqparse.reqparse.RequestParser()
-		super(ItemAction, self).__init__()
+		self.reqparse = reqparse.RequestParser()
+		super(MuseItemAction, self).__init__()
 
 	def post(self, id=None):
 		self.reqparse.add_argument("name", type=str, required=True, help="Item name required")
@@ -170,7 +170,7 @@ class MuseItemAction(Resource):
 			return {"message": "no blank fields allowed"}, 400
 		if name.isspace():
 			return {"message", "name is invalid"}, 400
-		muselist = Muselist.query.filter_by(id=id).first()
+		muselist = MuseList.query.filter_by(id=id).first()
 		if not muselist or (muselist.user_id != g.user.id):
 			abort(404,"muselst not found, confirm the id")
 		item = MuseItems(name=name, muse_id=id, item_description=item_description)

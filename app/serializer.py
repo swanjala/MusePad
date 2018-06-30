@@ -14,6 +14,5 @@ MuselistFormat = {"id": fields.Integer,
 				  "name": fields.String,
 				  "items": fields.List(fields.Nested(Itemformat)),
 				  "date_created": fields.DateTime(),
-				  "creator": fields.String(attribute="user.username"),
-				  "muse_description":fields.String
+				  "creator": fields.String(attribute="user.username")
 				  }
