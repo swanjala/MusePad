@@ -7,6 +7,7 @@ Itemformat = {"id": fields.Integer,
 			  "date_created": fields.DateTime(dt_format = "rfc822"),
 			  "date_modified": fields.DateTime(dt_format="rfc822"),
 			  "done": fields.Boolean(attribute="status"),
+			  "muse_id": fields.Integer,
 			  "item_description": fields.String
 			  }
 

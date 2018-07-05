@@ -25,7 +25,7 @@ Add the application API enpoints
 api.add_resource(LoginUser,"/auth/login", endpoint="token")
 api.add_resource(RegisterUser,"/auth/register", endpoint="register")
 api.add_resource(MuseListAction, "/muselists","/muselists/<id>", endpoint="muselist")
-api.add_resource(MuseItemAction, "/muselists/<id>/items", "/muselists/<id>/items/<item_id>", endpoint="items")
+api.add_resource(MuseItemAction, "/muselists/<id>/items", "/muselists/<id>/items/<Item_id>", endpoint="items")
 
 # Instanciate the application
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')

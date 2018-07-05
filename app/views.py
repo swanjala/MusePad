@@ -181,7 +181,7 @@ class MuseItemAction(Resource):
 
 	def put(self, id=None, Item_id=None):
 		self.reqparse.add_argument("name", type=str, help="item name required")
-		self.reqparse.add_argument("statue",type=inputs.boolean, location="json", help="status required as true or false")
+		self.reqparse.add_argument("status",type=inputs.boolean, location="json", help="status required as true or false")
 
 		args = self.reqparse.parse_args()
 		name, status = args["name"], args["status"]
@@ -192,7 +192,7 @@ class MuseItemAction(Resource):
 		if name is None and status is None:
 			abort(400,"provide at least one parameter to change")
 
-		muse = Muselist.query.filter_by(id=id).first()
+		muse = MuseList.query.filter_by(id=id).first()
 		item = MuseItems.query.filter_by(id=Item_id).first()
 
 		if not muse or (muse.user_id !=g.user.id) or not item:
