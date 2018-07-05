@@ -2,8 +2,10 @@
 
 ![musejournal](https://user-images.githubusercontent.com/24252450/41875468-9e509112-78d3-11e8-894d-78a9f67f007b.png)
 
+
 ## About 
 Muse-Pad is an Application Programming interface that let you write down your thoughts and special moments in your daily life.
+Hosted on https://muse-pad.herokuapp.com
 
 ## Getting Started
 
