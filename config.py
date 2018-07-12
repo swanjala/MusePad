@@ -1,5 +1,9 @@
 import os
 
+"""Class the implements all the required configuration and settings 
+for the various application environments, during development, production and deployment
+of the Application Programming Interface"""
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -18,15 +22,10 @@ class Config:
 
 
 class Development(Config):
-    """
-    Setup wide development environment
 
-    """
+    # Implements application wide development environment.
     DEBUG = True
-    # configuration for postgres development
-    """             
-    app.config['SQLALCHEMY_DATABASE_URI'] = ('postgresql://bucketlist:bucketlist@localhost/bucketlist')
-    """
+
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir,'data-dev.db')
 
 
@@ -35,21 +34,9 @@ class Testing(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or  \
         'sqlite:///' + os.path.join(basedir, 'data-test.db')
 
-# class Production(Config):
-
-#     DEBUG= True
-
-#      SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
-#         'sqlite:///' + os.path.join(basedir, 'data-dev.db')
-
-
-#      #app.config['SQLALCHEMY_DATABASE_URI'] = ('postgresql://bucketlist:bucketlist@localhost/bucketlist')
-
 class ProductionConfig(Config):
+    # Configuration for the applications production environment
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') 
-     # SQLALCHEMY_DATABASE_URI = os.environ["DATABASE_URL"]
-
-
 
 
 class HerokuConfig(ProductionConfig): 

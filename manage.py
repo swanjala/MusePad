@@ -7,6 +7,9 @@ from flask_migrate import Migrate, MigrateCommand
 from flask import jsonify
 import coverage
 
+"""Class that manages the applications base operations, from running to database operations 
+and definition of view navigation before application runtime"""
+
 COV = coverage.coverage(
 	branch=True,
 	include='app/*',

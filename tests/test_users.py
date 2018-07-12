@@ -3,6 +3,8 @@ from app.models import User
 
 import json
 
+"""Test that all the users operations functionas designed in the application
+inc.udin user registratiion, application and also all the  required entries are supplied"""
 class UserRegisterTest(BaseTestClass):
     "Test Class for user registration"
 

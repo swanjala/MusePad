@@ -99,4 +99,7 @@ venv.bak/
 
 # mkdocs documentation
 /site
+migrations/versions/*.py
+
+data-dev.db
 

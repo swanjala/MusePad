@@ -4,6 +4,8 @@ from app.models import User, Muselist, Item
 
 import json
 
+"""Test that the application programming interface entries are as 
+designed for all the user entries."""
 class list_item_test(BaseTestClass):
 """ Test operation on muselist entries"""
 	def test_add_Item(self):

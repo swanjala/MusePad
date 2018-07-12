@@ -2,6 +2,8 @@ from Tests.test_setup import BaseTestClass
 from app.models import User, MuseList, Item
 import json
 
+"""Tests that all the intended operations on the muselist work as intended including 
+authorization and implementation of the various methods in the application programming Interface"""
 class MuseListTest(BaseTestClass):
 	"Implements tests for muselist endpoints"
 

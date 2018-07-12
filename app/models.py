@@ -4,6 +4,10 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import current_app
 
+"""
+Class that defines the application's database models and utilized by the ORM
+to create a database and its various relationships
+"""
 class User(db.Model):
 	__tablename__= 'users'
 	id = db.Column(db.Integer, primary_key=True)

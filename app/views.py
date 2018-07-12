@@ -7,7 +7,10 @@ from app.user_auth import token_auth, g
 from app.utils import save, delete, is_not_empty
 from app.serializer import MuselistFormat
 
+
 class LoginUser(Resource):
+
+	# Implements the user loging resources
 
 	def __init__(self):
 		self.reqparse = reqparse.RequestParser()
@@ -31,6 +34,7 @@ class LoginUser(Resource):
 
 class RegisterUser(Resource):
 
+	# Implements user resgistration resources
 	def __init__(self):
 
 		self.reqparse = reqparse.RequestParser()
@@ -63,6 +67,7 @@ class RegisterUser(Resource):
 		return {"message": msg}, 201
 
 class MuseListAction(Resource):
+	# Implements muselist action resources
 
 	decorators = [token_auth.login_required]
 
@@ -152,6 +157,7 @@ class MuseListAction(Resource):
 		return ({"message": msg}), 200
 
 class MuseItemAction(Resource):
+	# Implements muse item actions
 	decorators = [token_auth.login_required]
 
 	def __init__(self):
