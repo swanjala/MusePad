@@ -26,7 +26,7 @@ class LoginUser(Resource):
 			return {"message", "could not log you in, Check your credentials"}
 
 		token = user.confirmation_token(expiry_time)
-		return {"token": token.decode("ascii"), "user_id": user.id}, 200
+		return {"token": token.decode("ascii"), "user_id": user.id,"gender":user.gender}, 200
 		
 
 class RegisterUser(Resource):
