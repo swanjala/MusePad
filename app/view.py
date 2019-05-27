@@ -60,7 +60,7 @@ class RegisterUser(Resource):
 		msg = "You have been successfully added as " + user.email_address
 
 		token = user.confirmation_token(expiry_time)
-		return {"token": token}, 201
+		return {"token": token.decode("ascii")}, 201
 
 
 class ProfileActions(Resource):
