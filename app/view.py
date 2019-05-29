@@ -28,6 +28,28 @@ class LoginUser(Resource):
 		token = user.confirmation_token(expiry_time)
 		return {"token": token.decode("ascii"), "user_id": user.id,"gender":user.gender, "email":user.email_address}, 200
 		
+class CheckUserEmail(Resource):
+
+	# Check the databse for an occurance of the requested email
+
+	def __init__ (self):
+		self.reqparse = reqparse.RequestParser()
+		self.reqparse.add_argument('email_address', type=str, required=True, help = "Enter email")
+
+		super(CheckUserEmail, self).__init__()
+
+	def post(self):
+
+		args = self.reqparse.parse_args()
+
+		email_address = args["email_address"]
+
+		user = User.query.filter_by(email_address=email_address).first()
+
+		if not user:
+			return {"email_availability": "false"}, 200
+			
+		return {"email_availability":"true"}, 200
 
 class RegisterUser(Resource):
 

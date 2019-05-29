@@ -1,13 +1,14 @@
 import os
 from app import create_app, db, api
 from app.models import User, Profile 
-from app.view import LoginUser, RegisterUser, ProfileActions
+from app.view import LoginUser, RegisterUser, ProfileActions, CheckUserEmail
 from flask_script import Server, Manager, Shell, prompt_bool
 from flask_migrate import Migrate, MigrateCommand
 from flask import jsonify
 
 
 api.add_resource(LoginUser, "/auth/login", endpoint="token")
+api.add_resource(CheckUserEmail, "/auth/email", endpoint="verification")
 api.add_resource(RegisterUser, "/auth/register", endpoint="register")
 api.add_resource(ProfileActions,"/profile", "/profile", endpoint="profile")
 
