@@ -98,6 +98,7 @@ class ProfileActions(Resource):
 	def get(self, email=None):
 		search = request.args.get("q") or None
 
+
 		if email:
 			profile_obj = User.query.filter_by(email_address= email).first()
 
@@ -114,7 +115,7 @@ class ProfileActions(Resource):
 		
 			profile_results= [profile_results for profile_results in profile_search_results] 
 
-			return profile_results, 200
+		return {"profile": "profile_results"}, 200
 
 		
 
