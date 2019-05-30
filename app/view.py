@@ -87,35 +87,36 @@ class RegisterUser(Resource):
 
 class ProfileActions(Resource):
 
-	decorators = [token_auth.login_required]
-
 	def __init__(self):
 
 		self.reqparse = reqparse.RequestParser()
 		super(ProfileActions, self).__init__()
 
 	@marshal_with(UserFormat)
-	def get(self, email=None):
+	def get(self):
 		search = request.args.get("q") or None
 
+		profile_obj = User.query.all()
 
-		if email:
-			profile_obj = User.query.filter_by(email_address= email).first()
 
-			if not profile_obj:
-				abort(404, "Data cannot be retrieved at this time")
+		# if email:
+			
+		# 	# .filter_by(email_address= email).first()
 
-			return profile_obj, 200
+		# 	if not profile_obj:
+		# 		abort(404, "Data cannot be retrieved at this time")
 
-		if search:
-			profile_search_results = User.query.filter(User.email_address.ilike("%"+search+"%"))
+		# 	return profile_obj, 200
 
-			if not profile_search_results or profile_search_results is None:
-				abort(404, "Cannot retrieve user")
+		# if search:
+		# 	profile_search_results = User.query.filter(User.email_address.ilike("%"+search+"%"))
+
+		# 	if not profile_search_results or profile_search_results is None:
+		# 		abort(404, "Cannot retrieve user")
 		
-			profile_results= [profile_results for profile_results in profile_search_results] 
+		profile_results= [profile_results for profile_results in profile_obj] 
 
-		return {"profile": "profile_results"}, 200
+		return {"profile": profile_results}, 200
 
 		
 
