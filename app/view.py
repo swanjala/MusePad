@@ -26,11 +26,10 @@ class LoginUser(Resource):
 			return {"message", "could not log you in, Check your credentials"}
 
 		token = user.confirmation_token(expiry_time)
+
 		return {"token": token.decode("ascii"), "user_id": user.id,"gender":user.gender, "email":user.email_address}, 200
 		
 class CheckUserEmail(Resource):
-
-	# Check the databse for an occurance of the requested email
 
 	def __init__ (self):
 		self.reqparse = reqparse.RequestParser()
@@ -55,7 +54,7 @@ class RegisterUser(Resource):
 
 	def __init__(self):
 		self.reqparse = reqparse.RequestParser()
-		self.reqparse.add_argument("email_address", type= str, required=True, help="Enter an email name")
+		self.reqparse.add_argument("email_address", type= str, required=True, help="Enter an email")
 		self.reqparse.add_argument("password", type= str, required=True, help= "Enter password")
 		self.reqparse.add_argument("gender", type=str, required= True, help="Enter your gender")
 
@@ -82,6 +81,7 @@ class RegisterUser(Resource):
 		msg = "You have been successfully added as " + user.email_address
 
 		token = user.confirmation_token(expiry_time)
+
 		return {"token": token.decode("ascii"),"email":user.email_address, "gender": user.gender}, 201
 
 
@@ -95,13 +95,22 @@ class ProfileActions(Resource):
 		super(ProfileActions, self).__init__()
 
 	@marshal_with(UserFormat)
-	def get(self, id=None):
+	def get(self, email=None):
 		search = request.args.get("q") or None
-		
-		if id:
-			profile_obj = User.query.filter_by(id= id).first()
+
+		if email:
+			profile_obj = User.query.filter_by(email_address= email).first()
+
+			if not profile_obj:
+				abort(404, "Data cannot be retrieved at this time")
+
+			return profile_obj, 200
+
 		if search:
-			profile_search_results = User.query.filter(User.id.ilike("%"+search+"%"))
+			profile_search_results = User.query.filter(User.email_address.ilike("%"+search+"%"))
+
+			if not profile_search_results or profile_search_results is None:
+				abort(404, "Cannot retrieve user")
 		
 			profile_results= [profile_results for profile_results in profile_search_results] 
 
