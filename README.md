@@ -4,8 +4,6 @@
 
 
 * [FLASK](https://flask/pocoo.org) - The web framework used
-* [NOSE](https://nose.readthedocs.io/en/latest/) - Testing framework
-* [COVERALLS](https://coveralls.io/)- Used to generate RSS Feeds 
 
 ## Versioning
 
